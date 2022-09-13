@@ -7,9 +7,7 @@ async function main() {
   await nftContract.deployed();
 
   console.log("NFTContract deployed to:", nftContract.address);
-  console.log(
-    `If it is in mumbai: https://mumbai.polygonscan.com/address/${nftContract.address}`
-  );
+
 
   fs.writeFileSync(
     "./config.js",
