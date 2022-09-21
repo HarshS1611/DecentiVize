@@ -54,6 +54,8 @@ import NotFound from "./pages/NotFound";
 import HelpCenter from "./pages/HelpCenter";
 import CatagoryQuestions from "./components/helpCenter/CatagoryQuestions";
 import HelpQuestionDetails from "./components/helpCenter/QuestionDetails";
+import Farm from "./pages/Farm";
+import LiveFarmDetails from "./components/liveFarm/liveFarmDetails";
 
 function App() {
   return (
@@ -63,7 +65,7 @@ function App() {
         <Route path="/home1" element={<HomeOne />} />
         <Route path="/home2" element={<HomeTwo />} />
 
-        <Route path="/farm" element={<ExploreOne />} />
+        <Route path="/farm" element={<Farm />} />
         <Route path="/explore2" element={<ExploreTwo />} />
         <Route path="/featured-items" element={<FeaturedItems />} />
         <Route path="/live-bidding" element={<LiveBidding />} />
@@ -71,6 +73,7 @@ function App() {
         <Route path="/top-seller" element={<TopSeller />} />
         <Route path="/top-buyer" element={<TopBuyer />} />
         <Route path="/live-bid/:BIDSID" element={<LiveAuctionDetails />} />
+        <Route path="/live-farm/:BIDSID" element={<LiveFarmDetails />} />
         <Route
           path="/featured-items/:FEATUREDID"
           element={<FeaturedNFTDetails />}

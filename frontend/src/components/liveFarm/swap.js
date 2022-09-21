@@ -4,10 +4,10 @@ import { ethers } from "ethers";
 import axios from "axios";
 import Web3Modal from "web3modal";
 import { nftAddress } from "../../blockchain/config";
-import NFTEE from "../../blockchain/artifacts/contracts/NFTEE.sol/NFTEE.json";
+import NFTContract from "../../blockchain/artifacts/contracts/NFTContract.sol/NFTContract.json";
 const Swap = (props) => {
   const { owner } = props.nftdata;
-  const [inputfrac, setInput1] = useState(0);
+  const [inputrev, setInput1] = useState(0);
   const [inputmatic, setInput2] = useState(0);
   const [whichfeild, setWhichfeild] = useState(0);
   async function calculate() {
@@ -15,7 +15,7 @@ const Swap = (props) => {
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
-    let contract = new ethers.Contract(nftAddress, NFTEE.abi, signer);
+    let contract = new ethers.Contract(nftAddress, NFTContract.abi, signer);
     const pooldata = await contract.pool_data(props.poolId);
     console.log(pooldata.nft_fractions.toNumber());
     const pool_const =
@@ -23,30 +23,22 @@ const Swap = (props) => {
       Number(ethers.utils.formatEther(pooldata.token_liq));
     console.log("pool_const", pool_const);
 
-    if (inputfrac > 0) {
-      // Swap TO MATIC from Fractions
+    if (inputrev > 0) {
+      // Swap TO Revenue from Fractions
       var tokens =
-        Number(ethers.utils.formatEther(pooldata.token_liq)) -
-        pool_const / (pooldata.nft_fractions.toNumber() + Number(inputfrac));
+        Number(inputrev)/10000 * 264 
       setInput2(tokens);
       console.log("tokens", tokens);
     } else {
-      // Swap FROM MATIC to Fractions
+      // Swap FROM fractions to revenue
       var fractions =
         pooldata.nft_fractions.toNumber() -
         pool_const /
-          (Number(ethers.utils.formatEther(pooldata.token_liq)) +
-            Number(inputmatic));
-      // console.log('pool_const: ', pool_const);
-      // console.log(
-      //   "ethers.utils.formatEther(pooldata.token_liq): ",
-      //    Number(ethers.utils.formatEther(pooldata.token_liq))
-      // );
-      // console.log('inputmatic: ', Number(inputmatic));
-      // console.log('pooldata.nft_fractions.toNumber(): ', pooldata.nft_fractions.toNumber());
+        (Number(ethers.utils.formatEther(pooldata.token_liq)) +
+          Number(inputmatic));
+      
       setInput1(fractions);
       console.log("fractions", fractions);
-      localStorage.setItem("fractions", fractions);
     }
   }
 
@@ -57,8 +49,8 @@ const Swap = (props) => {
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
-    let contract = new ethers.Contract(nftAddress, NFTEE.abi, signer);
-
+    let contract = new ethers.Contract(nftAddress, NFTContract.abi, signer);
+    
     if (whichfeild == 1) {
       console.log(whichfeild);
       const swap1 = contract.swap(props.poolId, inputfrac, {
@@ -121,7 +113,7 @@ const Swap = (props) => {
                     class="uniswapSelectorLogo"
                     src="https://assets.coingecko.com/coins/images/4454/thumb/0xbtc.png?1561603765"
                   />
-                  <div class="uniswapSelectorText">0xFRN</div>
+                  <div class="uniswapSelectorText">Profits</div>
                   <div class="uniswapSelectorArrow">
                     <svg
                       width="12"
@@ -142,9 +134,9 @@ const Swap = (props) => {
                   class="uniswapTextInput"
                   type="text"
                   placeholder="0.0"
-                  value={inputfrac}
+                  value={inputmatic}
                   onChange={(e) => {
-                    setInput1(e.target.value);
+                    setInput2(e.target.value);
                     setWhichfeild(1);
                   }}
                 />
@@ -171,7 +163,7 @@ const Swap = (props) => {
                     class="uniswapSelectorLogo"
                     src="https://assets.coingecko.com/coins/images/11035/thumb/0xmnr.PNG?1587357680"
                   />
-                  <div class="uniswapSelectorText">0xMTC</div>
+                  <div class="uniswapSelectorText">0xFRN</div>
                   <div class="uniswapSelectorArrow">
                     <svg
                       width="12"
@@ -192,9 +184,9 @@ const Swap = (props) => {
                   class="uniswapTextInput"
                   type="text"
                   placeholder="0.0"
-                  value={inputmatic}
+                  value={inputrev}
                   onChange={(e) => {
-                    setInput2(e.target.value);
+                    setInput1(e.target.value);
                     setWhichfeild(0);
                   }}
                 />
@@ -204,7 +196,7 @@ const Swap = (props) => {
               Calculate
             </button>
             <button class="uniswapButton" onClick={Swapfunction}>
-              Swap
+              Stake
             </button>
           </div>
         </div>
