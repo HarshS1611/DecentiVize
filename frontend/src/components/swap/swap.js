@@ -4,7 +4,7 @@ import { ethers } from "ethers";
 import axios from "axios";
 import Web3Modal from "web3modal";
 import { nftAddress } from "../../blockchain/config";
-import NFTEE from "../../blockchain/artifacts/contracts/NFTEE.sol/NFTEE.json";
+import NFTEE from "../../blockchain/artifacts/contracts/NFTContract.sol/NFTContract.json";
 const Swap = (props) => {
   const { owner } = props.nftdata;
   const [inputfrac, setInput1] = useState(0);
@@ -35,8 +35,8 @@ const Swap = (props) => {
       var fractions =
         pooldata.nft_fractions.toNumber() -
         pool_const /
-          (Number(ethers.utils.formatEther(pooldata.token_liq)) +
-            Number(inputmatic));
+        (Number(ethers.utils.formatEther(pooldata.token_liq)) +
+          Number(inputmatic));
       // console.log('pool_const: ', pool_const);
       // console.log(
       //   "ethers.utils.formatEther(pooldata.token_liq): ",
