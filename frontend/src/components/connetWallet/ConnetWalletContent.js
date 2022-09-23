@@ -28,14 +28,14 @@ const ConnectWalletContent = () => {
     const handleLogin = async () => {
         uauth
             .loginWithPopup()
-            .then(() => uauth.user().then(setUser))
-            .catch(console.error)
-            .finally(() => {
+            .then(() => {
+                uauth.user().then(setUser)
                 setAccountAddress(user.wallet_address);
                 localStorage.setItem("wallet_address", user.wallet_address);
                 console.log(user.wallet_address);
                 setLoggedin(true);
-            });
+            })
+            .catch(console.error);
 
     }
 
@@ -57,10 +57,7 @@ const ConnectWalletContent = () => {
             }
             sethaveMetamask(true);
         };
-        uauth
-            .user()
-            .then(setUser(null))
-            .catch(console.error);
+
         checkMetamaskAvailability();
     }, []);
 
@@ -75,11 +72,11 @@ const ConnectWalletContent = () => {
             let balance = await provider.getBalance(accounts[0]);
             let bal = ethers.utils.formatEther(balance);
             setAccountAddress(accounts[0]);
+            setIsConnected(true);
             localStorage.setItem("wallet_address", accounts[0]);
+            console.log(isConnected);
             console.log(accountAddress);
             setAccountBalance(bal);
-            setIsConnected(true);
-
             // CreateItem();
         } catch (error) {
             setIsConnected(false);
