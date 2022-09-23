@@ -4,7 +4,7 @@ import ConnectWalletContent from "../components/connetWallet/ConnetWalletContent
 import CurrentWallet from "../components/dashboard/wallet/CurrentWallet";
 
 const DashboardWallet = () => {
-    return(
+    return (
         <>
             <DashboardHeader />
 
@@ -12,11 +12,11 @@ const DashboardWallet = () => {
 
             <div className="admin-wrapper">
                 <div className="container">
-                    
-                    <CurrentWallet 
-                        title="Your current wallet" 
-                        name="Metamask" 
-                        image="img/bg-img/metamask.png" 
+
+                    <CurrentWallet
+                        title="Your current wallet"
+                        name="Metamask"
+                        image="img/bg-img/metamask.png"
                         btnInfo={[
                             {
                                 text: "Change",
@@ -30,8 +30,8 @@ const DashboardWallet = () => {
                     <div className="mb-5" />
 
                     <div className="row g-4 justify-content-center">
-                        <ConnectWalletContent 
-                            heading="Connect with one of our available wallet providers." 
+                        <ConnectWalletContent
+                            heading="Connect with one of our available wallet providers."
                             walletCard={[
                                 {
                                     id: 1,
