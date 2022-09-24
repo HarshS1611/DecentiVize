@@ -1,120 +1,129 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import Tabs from 'react-bootstrap/Tabs';
-import Tab from 'react-bootstrap/Tab';
-import ScrollAnimation from "react-animate-on-scroll";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-import ActivityTableData from "../../../data/dashboard/activity-table-data.json";
 
 const ActivityTab = () => {
     const [key, setKey] = useState('today');
+    const [tokens, setTokens] = useState("");
+    const [user, setUser] = useState("");
+    const [data, setData] = useState([]);
+    const tokenID = [];
+    useEffect(() => {
+        if (JSON.stringify(localStorage.getItem("wallet_address")) != null) {
+            setUser(JSON.stringify(localStorage.getItem("wallet_address")));
+        }
+        fetchData();
+    }, [tokens]);
 
-    return(
-        <div className="col-12 col-xxl-6">
-            <ScrollAnimation animateIn="fadeInUp" delay={500} animateOnce={true} >
-                <div className="card border-0 shadow-sm dashboard-activity-tab">
-                    <div className="card-body p-4 d-flex flex-wrap">
-                        <h5>Activity</h5>
-                        
-                        <Tabs
-                            id="dashboard-activity-tab" 
-                            activeKey={key} 
-                            onSelect={(k) => setKey(k)} 
-                            className="border-0 mb-3 ms-auto"
-                        >
-                            <Tab eventKey="today" title="Today">
-                                <div className="table-responsive border shadow-sm dashboard-table activity-table">
-                                    <table className="table mb-0">
-                                        <tbody>
-                                            {ActivityTableData.map((elem, index) => (
-                                                <tr key={index}>
-                                                    <th scope="row">
-                                                        <Link className="btn btn-minimal text-dark hover-primary" to="#">
-                                                            <img className="rounded me-1" src={`${process.env.PUBLIC_URL}/${elem.name[0].thumbnail}`} alt =""/>
-                                                            {elem.name[0].text}
-                                                        </Link>
-                                                    </th>
-                                                    <td>
-                                                        <span className="d-inline-block fw-bold fz-14">{elem.price}</span>
-                                                    </td>
-                                                    <td>
-                                                        <i className={`bi ${elem.event[0].icon}`} /> 
-                                                        {elem.event[0].text}
-                                                    </td>
-                                                    <td>
-                                                        <i className={`bi ${elem.time[0].icon}`} /> 
-                                                        {elem.time[0].text}
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </Tab>
+    async function fetchData() {
+        const response = await axios.get("https://api.covalenthq.com/v1/80001/tokens/0xe6c5586d13ad0f33f438fa6A4002EA05A48994b5/nft_token_ids/?quote-currency=USD&format=JSON&key=ckey_d602af5fb4154aa5ace006300cc");
+        console.log(response.data.data.items.length)
+        setTokens(response.data.data.items.length)
+        for (let i = 1; i <= tokens; i++) {
+            tokenID.push(i)
+        }
+        console.log(tokenID)
+        const items = await Promise.all(
+            tokenID.map(async (item) => {
+                const res = await axios.get(`https://api.covalenthq.com/v1/80001/tokens/0xe6c5586d13ad0f33f438fa6A4002EA05A48994b5/nft_metadata/${item}/?quote-currency=USD&format=JSON&key=ckey_d602af5fb4154aa5ace006300cc`);
 
-                            <Tab eventKey="week" title="7 Day">
-                                <div className="table-responsive border shadow-sm dashboard-table activity-table">
-                                    <table className="table mb-0">
-                                        <tbody>
-                                            {ActivityTableData.map((elem, index) => (
-                                                <tr key={index}>
-                                                    <th scope="row">
-                                                        <Link className="btn btn-minimal text-dark hover-primary" to="#">
-                                                            <img className="rounded me-1" src={`${process.env.PUBLIC_URL}/${elem.name[0].thumbnail}`} alt =""/>
-                                                            {elem.name[0].text}
-                                                        </Link>
-                                                    </th>
-                                                    <td>
-                                                        <span className="d-inline-block fw-bold fz-14">{elem.price}</span>
-                                                    </td>
-                                                    <td>
-                                                        <i className={`bi ${elem.event[0].icon}`} /> 
-                                                        {elem.event[0].text}
-                                                    </td>
-                                                    <td>
-                                                        <i className={`bi ${elem.time[0].icon}`} /> 
-                                                        {elem.time[0].text}
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </Tab>
+                if (user == JSON.stringify(res.data.data.items[0].nft_data[0].original_owner)) {
+                    console.log(res.data.data.items[0].nft_data[0]);
 
-                            <Tab eventKey="month" title="30 Day">
-                                <div className="table-responsive border shadow-sm dashboard-table activity-table">
-                                    <table className="table mb-0">
-                                        <tbody>
-                                            {ActivityTableData.map((elem, index) => (
-                                                <tr key={index}>
-                                                    <th scope="row">
-                                                        <Link className="btn btn-minimal text-dark hover-primary" to="#">
-                                                            <img className="rounded me-1" src={`${process.env.PUBLIC_URL}/${elem.name[0].thumbnail}`} alt =""/>
-                                                            {elem.name[0].text}
-                                                        </Link>
-                                                    </th>
-                                                    <td>
-                                                        <span className="d-inline-block fw-bold fz-14">{elem.price}</span>
+                    let item = {
+                        id: res.data.data.items[0].nft_data[0].token_id,
+                        name: res.data.data.items[0].nft_data[0].external_data.name,
+                        image: res.data.data.items[0].nft_data[0].external_data.image
+                    };
+                    console.log(item);
+                    if (item.id === undefined) { return 0; }
+                    else if (item.id !== undefined) { return item; }
+                } else { return 0; }
+            })
+        );
+        console.log(items);
+        setData(items);
+
+    }
+    console.log(data);
+
+    // const RowData = data.map((elem, index) => {
+    //     {
+    //         (elem !== null) ? (<div key={index}><tr className="border">
+
+    //             <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900 border">{elem.id}</td>
+    //             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border">
+    //                 {elem.name}
+    //             </td>
+    //             <td className="text-sm text-gray-900 text-center font-light px-6 py-4 whitespace-nowrap border">
+    //                 <img src={elem.image} alt={elem.name} />
+    //             </td>
+    //             <td className="text-sm text-gray-900 text-center font-light px-6 py-4 whitespace-nowrap border">
+    //                 <a href="https://mumbai.polygonscan.com/address/0xe6c5586d13ad0f33f438fa6a4002ea05a48994b5#tokentxnsErc721" target="blank" />
+    //             </td>
+    //         </tr></div>)
+    //             : (<></>)
+
+    //     }
+
+
+    // });
+
+    return (
+        <div className="col-12 col-xxl-12">
+            <h3>Wallet Address : {`0x...${user.slice(35, 43)}`}</h3>
+            <div className="flex flex-col bg-white">
+                <div className=" sm:-mx-6 lg:-mx-8">
+                    <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                        <div className="overflow-hidden">
+                            <table className="min-w-full p-5">
+                                <thead className="border-b">
+                                    <tr>
+                                        <th scope="col" className="text-sm font-medium text-center text-gray-900 px-6 py-4 border">
+                                            Token No.
+                                        </th>
+                                        <th scope="col" className="text-sm font-medium text-center text-gray-900 px-6 py-4 border">
+                                            NFT Name
+                                        </th>
+                                        <th scope="col" className="text-sm font-medium text-center text-gray-900 px-6 py-4 border">
+                                            NFT Image
+                                        </th>
+                                        <th scope="col" className="text-sm font-medium text-center text-gray-900 px-6 py-4 border">
+                                            Contract Link
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {data.map((elem, index) => {
+                                        {
+                                            (elem != 0) ? (
+
+                                                <tr key={index} className="border">
+
+                                                    <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900 border">{elem.id}</td>
+                                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border">
+                                                        {elem.name}
                                                     </td>
-                                                    <td>
-                                                        <i className={`bi ${elem.event[0].icon}`} /> 
-                                                        {elem.event[0].text}
+                                                    <td className="text-sm text-gray-900 text-center font-light px-6 py-4 whitespace-nowrap border">
+                                                        <img src={elem.image} alt={elem.name} />
                                                     </td>
-                                                    <td>
-                                                        <i className={`bi ${elem.time[0].icon}`} /> 
-                                                        {elem.time[0].text}
+                                                    <td className="text-sm text-gray-900 text-center font-light px-6 py-4 whitespace-nowrap border">
+                                                        <a href="https://mumbai.polygonscan.com/address/0xe6c5586d13ad0f33f438fa6a4002ea05a48994b5#tokentxnsErc721" target="blank" >
+                                                            Link </a>
                                                     </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </Tab>
-                        </Tabs>
+                                                </tr>)
+                                                : (<></>)
+
+                                        }
+
+
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </ScrollAnimation>
+            </div>
         </div>
     )
 }

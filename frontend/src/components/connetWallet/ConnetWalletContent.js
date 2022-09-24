@@ -23,6 +23,28 @@ const ConnectWalletContent = () => {
     const { ethereum } = window;
     const provider = new ethers.providers.Web3Provider(window.ethereum);
 
+    const connectWallet = async () => {
+        try {
+            if (!ethereum) {
+                sethaveMetamask(false);
+            }
+            const accounts = await ethereum.request({
+                method: "eth_requestAccounts",
+            });
+            let balance = await provider.getBalance(accounts[0]);
+            let bal = ethers.utils.formatEther(balance);
+            setAccountAddress(accounts[0]);
+            setIsConnected(true);
+            localStorage.setItem("wallet_address", accounts[0]);
+            console.log(isConnected);
+            console.log(accountAddress);
+            // CreateItem();
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
 
     // On login button click
     const handleLogin = async () => {
@@ -50,6 +72,13 @@ const ConnectWalletContent = () => {
     }
 
     useEffect(() => {
+
+        if (isConnected || isLoggedin) {
+            setAccountAddress(JSON.parse(localStorage.getItem("wallet_address")));
+
+
+        }
+
         const { ethereum } = window;
         const checkMetamaskAvailability = async () => {
             if (!ethereum) {
@@ -61,27 +90,6 @@ const ConnectWalletContent = () => {
         checkMetamaskAvailability();
     }, []);
 
-    const connectWallet = async () => {
-        try {
-            if (!ethereum) {
-                sethaveMetamask(false);
-            }
-            const accounts = await ethereum.request({
-                method: "eth_requestAccounts",
-            });
-            let balance = await provider.getBalance(accounts[0]);
-            let bal = ethers.utils.formatEther(balance);
-            setAccountAddress(accounts[0]);
-            setIsConnected(true);
-            localStorage.setItem("wallet_address", accounts[0]);
-            console.log(isConnected);
-            console.log(accountAddress);
-            setAccountBalance(bal);
-            // CreateItem();
-        } catch (error) {
-            setIsConnected(false);
-        }
-    };
 
 
 
@@ -91,6 +99,8 @@ const ConnectWalletContent = () => {
             <div className="container" >
                 <div className="text-center" >
                     <h2 className="mb-70" > Connect with one of our available wallet providers.</h2>
+                    {accountAddress ? (<><h3> Your Wallet Address : {accountAddress}</h3></>) : (<></>)}
+
                 </div>
 
                 < div className="row g-4 g-xl-5 justify-content-center" >
