@@ -53,7 +53,7 @@ const ConnectWalletContent = () => {
             .then(() => {
                 uauth.user().then(setUser)
                 setAccountAddress(user.wallet_address);
-                localStorage.setItem("wallet_address", user.wallet_address);
+                localStorage.setItem("wallet_address", user.wallet_address.toLowerCase());
                 console.log(user.wallet_address);
                 setLoggedin(true);
             })

@@ -1,8 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
+import ScrollAnimation from "react-animate-on-scroll";
 
 
-const ActivityTab = () => {
+
+const Activity = () => {
     const [key, setKey] = useState('today');
     const [tokens, setTokens] = useState("");
     const [user, setUser] = useState("");
@@ -28,7 +33,7 @@ const ActivityTab = () => {
                 const res = await axios.get(`https://api.covalenthq.com/v1/80001/tokens/0xe6c5586d13ad0f33f438fa6A4002EA05A48994b5/nft_metadata/${item}/?quote-currency=USD&format=JSON&key=ckey_d602af5fb4154aa5ace006300cc`);
 
                 if (user == JSON.stringify(res.data.data.items[0].nft_data[0].original_owner)) {
-                    console.log(res.data.data.items[0].nft_data[0]);
+                    console.log(res.data.data.items[0].nft_data[0].original_owner);
 
                     let item = {
                         id: res.data.data.items[0].nft_data[0].token_id,
@@ -59,7 +64,7 @@ const ActivityTab = () => {
                         {elem.name}
                     </td>
                     <td className="text-sm text-gray-900 text-center font-light px-6 py-4 whitespace-nowrap border">
-                        <img src={elem.image} alt={elem.name} />
+                        <a href={elem.image} target="blank"><img src={elem.image} alt={elem.name} /></a>
                     </td>
                     <td className="text-sm text-gray-900 text-center font-light px-6 py-4 whitespace-nowrap border">
                         <a href="https://mumbai.polygonscan.com/address/0xe6c5586d13ad0f33f438fa6a4002ea05a48994b5#tokentxnsErc721" target="blank" >
@@ -71,62 +76,39 @@ const ActivityTab = () => {
         }
     })
 
-
-    // const RowData = data.map((elem, index) => (
-    //     if (elem != '') {
-    //     return (
-    //         <tr key={index} className="border">
-
-    //             <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900 border">{elem.id}</td>
-    //             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border">
-    //                 {elem.name}
-    //             </td>
-    //             <td className="text-sm text-gray-900 text-center font-light px-6 py-4 whitespace-nowrap border">
-    //                 <img src={elem.image} alt={elem.name} />
-    //             </td>
-    //             <td className="text-sm text-gray-900 text-center font-light px-6 py-4 whitespace-nowrap border">
-    //                 <a href="https://mumbai.polygonscan.com/address/0xe6c5586d13ad0f33f438fa6a4002ea05a48994b5#tokentxnsErc721" target="blank" >
-    //                     Link
-    //                 </a>
-    //             </td>
-    //         </tr>
-    //     )
-    // }
-    // ))
     return (
-        <div className="col-12 ">
+        <div className="col-12 w-max  bg-white">
             <h3>Wallet Address : {`0x...${user.slice(35, 43)}`}</h3>
-            <div className="flex flex-col bg-white">
-                <div className=" sm:-mx-6 lg:-mx-8">
-                    <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-                        <div className="overflow-hidden">
-                            <table className="w-full p-5">
-                                <thead className="border-b">
-                                    <tr>
-                                        <th scope="col" className="text-sm font-medium text-center text-gray-900 px-6 py-4 border">
-                                            Token No.
-                                        </th>
-                                        <th scope="col" className="text-sm font-medium text-center text-gray-900 px-6 py-4 border">
-                                            NFT Name
-                                        </th>
-                                        <th scope="col" className="text-sm font-medium text-center text-gray-900 px-6 py-4 border">
-                                            NFT Image
-                                        </th>
-                                        <th scope="col" className="text-sm font-medium text-center text-gray-900 px-6 py-4 border">
-                                            Contract Link
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {RowData}
-                                </tbody>
-                            </table>
-                        </div>
+            <ScrollAnimation animateIn="fadeInUp" delay={500} animateOnce={true} >
+                <div className="container py-4  border-0 shadow-sm ">
+                    <h1>Your Listings</h1>
+                    <div className="card-body w-max  bg-slate-100">
+
+
+                        <Tabs
+                            id="dashboard-activity-tab"
+                            activeKey={key}
+                            onSelect={(k) => setKey(k)}
+                            className="border-0 mb-3 ms-auto"
+                        >
+                            <Tab eventKey="today" title="">
+                                <div className="table-responsive border shadow-sm dashboard-table activity-table">
+                                    <table className="table mb-0 w-full">
+                                        <tbody>
+
+                                            {RowData}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </Tab>
+
+
+                        </Tabs>
                     </div>
                 </div>
-            </div>
+            </ScrollAnimation>
         </div>
     )
 }
 
-export default ActivityTab;
+export default Activity;
