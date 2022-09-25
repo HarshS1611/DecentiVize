@@ -72,6 +72,12 @@ const DashboardHeader = () => {
             icon: "bi-speedometer",
             text: "epns inbox"
         },
+        {
+            id: 2,
+            path: "/epnsfeed",
+            icon: "bi-speedometer",
+            text: "epns feed"
+        },
         // {
         //     id: 2,
         //     path: "/live-bids",
@@ -159,15 +165,7 @@ const DashboardHeader = () => {
                         </ul>
                     </div>
 
-                    <div className="mt-auto">
-                        <div className="mt-5" />
-                        {/* Copyright Text */}
-                        <div className="copywrite-text mt-4">
-                            <p className="mb-0 fz-14">{new Date().getFullYear()} © All rights reserved by
-                                <a className="fz-14 ms-1" rel="noreferrer" href="https://themeforest.net/user/designing-world/portfolio" target="_blank">Designing World</a>
-                            </p>
-                        </div>
-                    </div>
+                    
 
                 </div>
             </div>

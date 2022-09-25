@@ -38,7 +38,7 @@ const Activity = () => {
                     let item = {
                         id: res.data.data.items[0].nft_data[0].token_id,
                         name: res.data.data.items[0].nft_data[0].external_data.name,
-                        image: res.data.data.items[0].nft_data[0].external_data.image_512
+                        image: res.data.data.items[0].nft_data[0].external_data.image
                     };
                     //console.log(item);
                     return item;
@@ -63,7 +63,7 @@ const Activity = () => {
                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border">
                         {elem.name}
                     </td>
-                    <td className="text-sm text-gray-900 text-center font-light px-6 py-4 whitespace-nowrap border">
+                    <td className="text-sm text-gray-900 text-center font-light whitespace-nowrap border">
                         <a href={elem.image} target="blank"><img src={elem.image} alt={elem.name} /></a>
                     </td>
                     <td className="text-sm text-gray-900 text-center font-light px-6 py-4 whitespace-nowrap border">

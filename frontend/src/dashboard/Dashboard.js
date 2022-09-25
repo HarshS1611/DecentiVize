@@ -15,24 +15,28 @@ import TrendingAuction from "../components/dashboard/trendingAuction/TrendingAuc
 import Activity from "../components/dashboard/activityTab/Activity";
 
 const Dashboard = () => {
-    return (
-        <div className="bg-black">
-            <Header />
-            <DashboardHeader />
-            <div className="admin-wrapper  bg-slate-200">
-                <div className="container w-full">
-                    <div className="row w-full g-12 space-y-2">
+  return (
+    <div className="">
+      <Header />
+      <DashboardHeader />
+      <div className="admin-wrapper  bg-slate-200">
+        <div className="container w-full">
+          <div className="row w-full g-12 space-y-2">
+            <div className="flex flex-col my-10 w-full">
+              {/* Statistics Chart */}
+              <StatisticsChart title="Sales" subTitle="Last 10 days" />
 
-
-                        {/* <ActivityTab /> */}
-                        <Activity />
-
-
-                    </div>
-                </div>
+              {/* Statistics Chart */}
+              <StatisticsChartTwo title="Revenue" subTitle="Last 10 days" />
+              <MonthlyVisitorChart title="Monthly Visitors" />
             </div>
+            {/* <ActivityTab /> */}
+            <Activity />
+          </div>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
 export default Dashboard;

@@ -69,7 +69,7 @@ const MonthlyVisitorChart = (props) => {
     });
 
     return(
-        <div className="col-12 col-xxl-6">
+        <div className="col-12 my-2">
             <ScrollAnimation animateIn="fadeInUp" delay={500} animateOnce={true} >
                 <div className="card border-0 shadow-sm">
                     <div className="card-body p-4 pb-0">
