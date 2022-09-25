@@ -37,50 +37,9 @@ export default function HomeOne() {
                 heading="Editor's Picks"
             />
 
-            <Divider />
 
 
 
-            <Divider />
-
-            {/* <LiveAuction
-                backgroundColor="gray"
-                spinnerColor="danger"
-                title="Live Auctions"
-                buttonText="View All Auctions"
-                buttonURL="/live-bidding"
-                buttonColor="primary"
-            /> */}
-
-            <Divider />
-
-            {/* <DiscoverItems
-                title="Discover"
-            /> */}
-
-            <Divider />
-
-            {/* <PopularCollection
-                title="Popular items in last"
-            /> */}
-
-            <Divider />
-
-            {/* <Process /> */}
-
-            <Divider />
-
-            {/* Data:  */}
-            {/* <Collection
-                heading="Browse by category"
-                buttonText="View All Catagories"
-                buttonURL="/collections"
-                buttonColor="primary"
-            /> */}
-
-            <Divider />
-            {/* 
-            <Footer /> */}
         </>
     )
 }

@@ -278,9 +278,7 @@ const Farm = () => {
         </div>
       </div>
 
-      <Divider />
 
-      <Footer />
     </>
   );
 };

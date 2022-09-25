@@ -18,7 +18,7 @@ export default function Header() {
   const stickyClass = `${sticky && check ? "sticky-on" : ""}`;
 
   return (
-    <header className={`header-area ${stickyClass}`}>
+    <header className={`header-area ${stickyClass} bg-black`}>
       <Navbar expand="lg">
         <Container>
           {/* Navbar Brand */}
