@@ -56,6 +56,7 @@ import CatagoryQuestions from "./components/helpCenter/CatagoryQuestions";
 import HelpQuestionDetails from "./components/helpCenter/QuestionDetails";
 import Farm from "./pages/Farm";
 import LiveFarmDetails from "./components/liveFarm/liveFarmDetails";
+import Epns from "./dashboard/epns";
 
 function App() {
   return (
@@ -84,6 +85,7 @@ function App() {
         />
 
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/epns" element={<Epns />} />
         <Route path="/live-bids" element={<DashboardLiveBids />} />
         <Route path="/my-collection" element={<DashboardCollection />} />
         <Route path="/my-wallet" element={<DashboardWallet />} />

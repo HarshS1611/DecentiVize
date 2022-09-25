@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import HeroOne from "../components/hero/HeroOne";
@@ -5,7 +6,8 @@ import Divider from "../components/divider/Divider";
 import FeaturedNFT from "../components/featuredNFT/FeaturedNFT";
 
 
-export default function HomeOne() {
+export default function HomeOne () {
+    
     return (
         <>
             <Header />

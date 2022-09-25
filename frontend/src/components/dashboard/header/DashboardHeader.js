@@ -66,6 +66,12 @@ const DashboardHeader = () => {
             icon: "bi-speedometer",
             text: "Dashboard"
         },
+        {
+            id: 2,
+            path: "/epns",
+            icon: "bi-speedometer",
+            text: "epns inbox"
+        },
         // {
         //     id: 2,
         //     path: "/live-bids",
