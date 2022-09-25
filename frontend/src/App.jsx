@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import ScrollToTop from "react-scroll-to-top";
+import './App.css'
 
 import "./assets/css/animate.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -60,7 +61,7 @@ import Epns from "./dashboard/epns";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App bg-black">
       <Routes>
         <Route path="/" index element={<HomeOne />} />
         <Route path="/home1" element={<HomeOne />} />

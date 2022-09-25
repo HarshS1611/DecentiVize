@@ -5,12 +5,12 @@ import CreateNewContent from "../components/createNew/CreateNewContent";
 import Divider from "../components/divider/Divider";
 
 export default function CreateNew() {
-    return(
-        <>
+    return (
+        <div className="bg-black">
             <Header />
 
-            <Breadcrumb 
-                breadcrumbTitle="Create New" 
+            <Breadcrumb
+                breadcrumbTitle="Create New"
                 breadcrumbNav={[
                     {
                         navText: "Home",
@@ -22,10 +22,10 @@ export default function CreateNew() {
             <Divider />
 
             <CreateNewContent />
-            
-            <Divider />
 
-            <Footer />
-        </>
+
+
+
+        </div>
     )
 }

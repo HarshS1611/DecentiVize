@@ -123,10 +123,10 @@ const DashboardHeader = () => {
     ))
 
     return (
-        <>
+        <div className='pt-10'>
 
 
-            <div className={`admin-sidebar-wrap ${isActive ? "sidebar-active" : "sidebar-disabled"}`} >
+            <div className={`admin-sidebar-wrap mt-20 ${isActive ? "sidebar-active" : "sidebar-disabled"}`} >
                 <div className="overflowY-scroll">
                     {/* User Profile */}
                     <div className="user-profile">
@@ -171,7 +171,7 @@ const DashboardHeader = () => {
 
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

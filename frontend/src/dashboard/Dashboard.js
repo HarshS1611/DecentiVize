@@ -16,7 +16,7 @@ import Activity from "../components/dashboard/activityTab/Activity";
 
 const Dashboard = () => {
     return (
-        <>
+        <div className="bg-black">
             <Header />
             <DashboardHeader />
             <div className="admin-wrapper  bg-slate-200">
@@ -31,7 +31,7 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
