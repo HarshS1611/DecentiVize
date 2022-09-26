@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 
-function SendEpnsNotification() {
+function SendepnsNotification() {
   const [haveMetamask, sethaveMetamask] = useState(true);
   const [accountAddress, setAccountAddress] = useState("");
   const [isConnected, setIsConnected] = useState(false);
@@ -101,4 +101,4 @@ function SendEpnsNotification() {
   );
 }
 
-export default SendEpnsNotification;
+export default SendepnsNotification;

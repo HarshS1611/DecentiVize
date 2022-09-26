@@ -10,8 +10,6 @@ const Epns = () => {
   const [accountAddress, setAccountAddress] = useState("");
   const [isConnected, setIsConnected] = useState(false);
 
-  const PK = "0x" + process.env.REACT_APP_PRIVATE_KEY;
-  const signer = new ethers.Wallet(PK);
 
   useEffect(() => {
     if (localStorage.getItem("wallet_address") !== "") {
