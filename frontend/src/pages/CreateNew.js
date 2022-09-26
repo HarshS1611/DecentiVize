@@ -6,7 +6,7 @@ import Divider from "../components/divider/Divider";
 
 export default function CreateNew() {
     return (
-        <div className="bg-black">
+        <div className="bg-white pb-5">
             <Header />
 
             <Breadcrumb
