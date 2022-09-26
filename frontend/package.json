@@ -67,6 +67,7 @@
     ]
   },
   "devDependencies": {
+    "dotenv": "^16.0.2",
     "eslint": "^8.23.0"
   },
   "peerDependencies": {

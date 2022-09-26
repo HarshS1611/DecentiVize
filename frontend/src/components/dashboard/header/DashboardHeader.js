@@ -60,55 +60,67 @@ const DashboardHeader = () => {
     ]
 
     const AdminNav = [
-        {
-            id: 1,
-            path: "/dashboard",
-            icon: "bi-speedometer",
-            text: "Dashboard"
-        },
-        {
-            id: 2,
-            path: "/epns",
-            icon: "bi-speedometer",
-            text: "epns inbox"
-        },
-        {
-            id: 2,
-            path: "/epnsfeed",
-            icon: "bi-speedometer",
-            text: "epns feed"
-        },
-        // {
-        //     id: 2,
-        //     path: "/live-bids",
-        //     icon: "bi-hammer",
-        //     text: "Live Bids"
-        // },
-        // {
-        //     id: 3,
-        //     path: "/my-collection",
-        //     icon: "bi-columns-gap",
-        //     text: "My Collections"
-        // },
-        // {
-        //     id: 4,
-        //     path: "/my-wallet",
-        //     icon: "bi-wallet2",
-        //     text: "My Wallet"
-        // },
-        // {
-        //     id: 5,
-        //     path: "/notifications",
-        //     icon: "bi-bell",
-        //     text: "Notifications"
-        // },
-        // {
-        //     id: 6,
-        //     path: "/settings",
-        //     icon: "bi-gear",
-        //     text: "Settings"
-        // }
-    ]
+      {
+        id: 1,
+        path: "/dashboard",
+        icon: "bi-speedometer",
+        text: "Dashboard",
+      },
+      {
+        id: 2,
+        path: "/epns",
+        icon: "bi-speedometer",
+        text: "epns inbox",
+      },
+      {
+        id: 3,
+        path: "/epnsfeed",
+        icon: "bi-speedometer",
+        text: "epns feed",
+      },
+      {
+        id: 4,
+        path: "/epnsOpt",
+        icon: "bi-speedometer",
+        text: "epns Opt",
+      },
+      {
+        id: 2,
+        path: "/epnsNotify",
+        icon: "bi-speedometer",
+        text: "epns Send Notifications",
+      },
+      // {
+      //     id: 2,
+      //     path: "/live-bids",
+      //     icon: "bi-hammer",
+      //     text: "Live Bids"
+      // },
+      // {
+      //     id: 3,
+      //     path: "/my-collection",
+      //     icon: "bi-columns-gap",
+      //     text: "My Collections"
+      // },
+      // {
+      //     id: 4,
+      //     path: "/my-wallet",
+      //     icon: "bi-wallet2",
+      //     text: "My Wallet"
+      // },
+      // {
+      //     id: 5,
+      //     path: "/notifications",
+      //     icon: "bi-bell",
+      //     text: "Notifications"
+      // },
+      // {
+      //     id: 6,
+      //     path: "/settings",
+      //     icon: "bi-gear",
+      //     text: "Settings"
+      // }
+    ];
 
     const userDropdownList = userDropdownData.map((elem, index) => (
         <li key={index}>

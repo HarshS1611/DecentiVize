@@ -4,22 +4,32 @@ import * as EpnsAPI from "@epnsproject/sdk-restapi";
 import { NotificationItem, chainNameType } from "@epnsproject/sdk-uiweb";
 import { useEffect, useState } from "react";
 
-
-
-
 const Epns = () => {
-    const [notifications, setNotifications] = useState([]);
+  const [notifications, setNotifications] = useState([]);
+  const [haveMetamask, sethaveMetamask] = useState(true);
+  const [accountAddress, setAccountAddress] = useState("");
+  const [isConnected, setIsConnected] = useState(false);
+
+  const PK = "0x" + process.env.REACT_APP_PRIVATE_KEY;
+  const signer = new ethers.Wallet(PK);
+
+  useEffect(() => {
+    if (localStorage.getItem("wallet_address") !== "") {
+      setIsConnected(true);
+      setAccountAddress(localStorage.getItem("wallet_address"));
+      sethaveMetamask(true);
+      fetchNotifs();
+    }
+  }, []);
     const fetchNotifs = async () => {
       const notifications = await EpnsAPI.user.getFeeds({
-        user: "eip155:42:0xD8634C39BBFd4033c0d3289C4515275102423681", // user address in CAIP
+        user: `eip155:42:${accountAddress}`,
         env: "staging",
       });
         setNotifications(notifications);
       console.log("Notifications: \n\n", notifications);
     };
-    useEffect(() => {
-        fetchNotifs();
-    }, []);
+
 
   return (
     <>
@@ -30,7 +40,7 @@ const Epns = () => {
           <div className=" w-full g-12 space-y-2">
             {notifications.map((notification) => (
               <NotificationItem
-                key={notification.id} // any unique id
+                key={notification.id}
                 notificationTitle={notification.title}
                 notificationBody={notification.message}
                 cta={notification.cta}
