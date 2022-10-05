@@ -8,8 +8,8 @@ import UAuth from '@uauth/js'
 
 const uauth = new UAuth({
     clientID: "5cf3ae79-8622-4a1a-b4b7-005e43e5f9f0",
-    redirectUri: "http://localhost:3000",
-    post_logout_redirect_uri: "http://localhost:3000/",
+    redirectUri: "https://decenti-vize.vercel.app/",
+    post_logout_redirect_uri: "https://decenti-vize.vercel.app/",
     scope: 'openid wallet',
 })
 
