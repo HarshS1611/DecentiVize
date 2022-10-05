@@ -17,6 +17,7 @@ const ConnectWalletContent = () => {
 
     const [haveMetamask, sethaveMetamask] = useState(true);
     const [accountAddress, setAccountAddress] = useState("");
+    const [domain, setDomain] = useState("");
     const [isConnected, setIsConnected] = useState(false);
     const [user, setUser] = useState(null);
     const [isLoggedin, setLoggedin] = useState(false);
@@ -51,10 +52,16 @@ const ConnectWalletContent = () => {
         uauth
             .loginWithPopup()
             .then(() => {
+                
                 uauth.user().then(setUser)
+                console.log(user)
+            }).then(() => {
                 setAccountAddress(user.wallet_address);
+                setDomain(user.sub);
                 localStorage.setItem("wallet_address", user.wallet_address.toLowerCase());
+                localStorage.setItem("domain", user.sub);
                 console.log(user.wallet_address);
+                console.log(user.sub);
                 setLoggedin(true);
             })
             .catch(console.error);
@@ -75,8 +82,7 @@ const ConnectWalletContent = () => {
 
         if (isConnected || isLoggedin) {
             setAccountAddress(JSON.parse(localStorage.getItem("wallet_address")));
-
-
+            setDomain(JSON.parse(localStorage.getItem("domain")));
         }
 
         const { ethereum } = window;
@@ -99,7 +105,7 @@ const ConnectWalletContent = () => {
             <div className="container" >
                 <div className="text-center" >
                     <h2 className="mb-70" > Connect with one of our available wallet providers.</h2>
-                    {accountAddress ? (<><h3> Your Wallet Address : {accountAddress}</h3></>) : (<></>)}
+                    {accountAddress ? (<><h3> Your Wallet Domain : {domain}</h3></>) : (<></>)}
 
                 </div>
 
