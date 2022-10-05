@@ -105,7 +105,7 @@ const ConnectWalletContent = () => {
             <div className="container" >
                 <div className="text-center" >
                     <h2 className="mb-70" > Connect with one of our available wallet providers.</h2>
-                    {accountAddress ? (<><h3> Your Wallet Domain : {domain}</h3></>) : (<></>)}
+                    {domain ? (<><h3> Your Wallet Domain : {domain}</h3></>) : (<></>)}
 
                 </div>
 

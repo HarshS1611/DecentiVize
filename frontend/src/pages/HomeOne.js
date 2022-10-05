@@ -25,20 +25,14 @@ export default function HomeOne () {
                     {
                         btnColor: "minimal",
                         btnText: "All Collections",
-                        btnURL: "/collections",
+                        btnURL: "/live-bidding",
                         btnIcon: "bi-grid-3x3-gap"
                     }
                 ]}
                 welcomeImage="img/illustrator/2.png"
             />
 
-            <Divider />
-
-            {/* Data: data > featuredNFT > featured-nft.json */}
-            <FeaturedNFT
-                heading="Editor's Picks"
-            />
-
+            
 
 
 
