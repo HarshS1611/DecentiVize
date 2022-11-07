@@ -24,7 +24,7 @@ const Dashboard = () => {
           <div className="row w-full g-12 space-y-2">
             <div className="flex flex-col my-10 w-full">
               {/* Statistics Chart */}
-              <StatisticsChart title="Sales" subTitle="Last 10 days" />
+              {/* <StatisticsChart title="Sales" subTitle="Last 10 days" /> */}
 
               {/* Statistics Chart */}
               <StatisticsChartTwo title="Revenue" subTitle="Last 10 days" />

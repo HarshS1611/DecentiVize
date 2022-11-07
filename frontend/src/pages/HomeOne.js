@@ -13,7 +13,7 @@ export default function HomeOne () {
             <Header />
 
             <HeroOne
-                heading="DecentiVize"
+                heading="Fracto Farm"
                 subHeading="It's crafted with the latest trend of design & coded with all modern approaches."
                 buttonGroup={[
                     {
